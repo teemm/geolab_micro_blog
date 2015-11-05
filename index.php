@@ -17,6 +17,14 @@ include('tweets.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <style>
+    
+    .limit {
+        color: red;
+    }
+    
+    </style>
+
     <title>Blog Post - Start Bootstrap Template</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/blog-post.css" rel="stylesheet">
@@ -64,29 +72,35 @@ include('tweets.php');
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
                 <div class="well">
-                    <form action="add.php" method="POST" role="form">
+                    <form id="addTweetForm" action="add.php" method="POST" role="form">
                         <div class="form-group">
-                            <textarea class="form-control" rows="3" name="content" placeholder="What's happening?"></textarea>
+                            <textarea id="tweetTextarea" test="test123" class="form-control" rows="3" name="content" placeholder="What's happening?"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Add Tweet</button>
+                        <div id="counter" style="float: right">
+                            დარჩენილი სიმბოლოები: <span id="charactersLeft">140</span>
+                        </div>
                     </form>
                 </div>
-
-                <!-- Blog Post -->
-                <?php foreach ( $tweets as $tweet ) : ?>
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading"><?php echo $tweet['username']; ?>
-                            <small><?php echo $tweet['date']; ?></small>
-                        </h4>
-                        <?php echo $tweet['content']; ?>
+                
+                <div id="newTweets">
+                    <?php foreach ( $tweets as $tweet ) : ?>
+                    <div class="media" data-id="<?php echo $tweet['id']; ?>">
+                        <a class="pull-left" href="#">
+                            <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        </a>
+                        <div class="media-body">
+                            <h4 class="media-heading"><?php echo $tweet['username']; ?>
+                                <small><?php echo $tweet['date']; ?></small>
+                            </h4>
+                            <?php echo $tweet['content']; ?>
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <?php endforeach; ?>
+                    <hr>
+                    <?php endforeach; ?>
+                </div>    
+                
+                <!-- Blog Post -->
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
@@ -117,9 +131,10 @@ include('tweets.php');
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/script.js"></script>
 
 </body>
 </html>
