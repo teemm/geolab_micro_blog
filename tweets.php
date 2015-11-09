@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once('include/db.php');
 
 $sql = "SELECT tweets.id, tweets.content, tweets.user_id, unix_timestamp(tweets.add_date) as add_date,

@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+if (isset($_GET['LogOut'])) {
+    session_destroy ();
+    header("Location: login.php");
+}
 if ( ! isset( $_SESSION['is_logged'] ) || $_SESSION['is_logged'] != 1 )
 {
     header("Location: login.php");
@@ -57,7 +60,11 @@ include('tweets.php');
                     <li>
                         <a href="#">Contact</a>
                     </li>
+
                 </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="?LogOut"><span class="glyphicon glyphicon-log-in"></span>LogOut</a></li>
+                  </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
