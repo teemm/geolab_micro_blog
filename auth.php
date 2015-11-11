@@ -24,6 +24,7 @@ if ( isset($_POST['email']) && isset($_POST['password']) )
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['user_id'] = $user['id'];
 			$_SESSION['username'] = $user['username'];
+			$_SESSION['ff'] = sha1($user['id'] . uniqid() . rand(1, 100000));
 			header('Location: index.php');
 		}
 		else

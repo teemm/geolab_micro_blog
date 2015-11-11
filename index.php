@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_GET['LogOut'])) {
+if (isset($_POST['LogOut'])) {
     session_destroy ();
     header("Location: login.php");
 }
@@ -31,6 +31,7 @@ include('tweets.php');
     <title>Blog Post - Start Bootstrap Template</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/blog-post.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -63,7 +64,12 @@ include('tweets.php');
 
                 </ul>
                   <ul class="nav navbar-nav navbar-right">
-                    <li><a href="?LogOut"><span class="glyphicon glyphicon-log-in"></span>LogOut</a></li>
+                    <li>
+                        <form id="logout" action="logout.php" method="POST">
+                        <a href="#!"><span class="glyphicon glyphicon-log-in"></span>LogOut</a>
+                        <input type="hidden" name="ff" value="<?php echo $_SESSION['ff'];?>">
+                        </form>
+                    </li>
                   </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -114,16 +120,19 @@ include('tweets.php');
             <div class="col-md-4">
 
                 <!-- Blog Search Well -->
-                <div class="well">
+                <div id="searchWrap" class="well">
                     <h4>Search</h4>
                     <div class="input-group">
-                        <input type="text" class="form-control">
+                        <input id="searchIn" type="text" class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
                         </span>
                     </div>
+                     <ul id="autocomplate">
+                            
+                        </ul>
                     <!-- /.input-group -->
                 </div>
             </div>

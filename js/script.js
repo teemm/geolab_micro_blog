@@ -21,10 +21,11 @@ $(document).ready(function() {
 	});
 
 	setInterval(function() {
+		return;
 
 		var firstTweet = $('#newTweets').find('.media').eq(0);
 
-		$.get('//localhost/geolab/twitter/getNewTweets.php', {lastTweetId: firstTweet.data('id')}, function(resp) {
+		$.get('//localhost/twitter/getNewTweets.php', {lastTweetId: firstTweet.data('id')}, function(resp) {
 			var html = '';
 			resp.forEach(function(tweet) {
 				html += '<div class="media" data-id="' + tweet.id + '">' +
@@ -42,15 +43,28 @@ $(document).ready(function() {
 
 
 			$('#newTweets').prepend(html);
-			console.log(html);
 		}, 'json');
 
 	}, 2000);
 
-	// $('#tweetTextarea').on('keydown', function(e) {
-	// 	var currentVal = parseInt( $('#charactersLeft').text() );
-	// 	if ( currentVal <= 0 ) {
-	// 		e.preventDefault();
-	// 	}
-	// });
+
+	$('#logout a').on('click', function(e){
+		e.preventDefault();
+		$('#logout').submit();
+	});
+
+
+	$('#searchIn').on('keyup', function(){
+		var input = $(this).val();
+		if (input.length >= 2){	
+		var _html = '';
+		$.get('search.php' , { s: $(this).val() }, function(resp){
+			for (var i =1; i < resp.length; i++) {
+				_html += '<li>' + resp[i].content + '<li>';
+
+			}
+			$('#autocomplate').html(_html);
+		}, 'json'); 
+		}
+	});
 });
